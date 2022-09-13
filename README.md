@@ -2,8 +2,6 @@
 
 Experimenting with voice recognition &amp; Text2Speech to create a virtual assistant.
 
-**Note:** 
-
 Examples of virtual assistants you might be familiar with:
 * Google Assistant
 * Siri
