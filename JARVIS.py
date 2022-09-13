@@ -12,12 +12,17 @@ openai.api_key = os.getenv("OPENAI_API_KEY", default=None)
 OPENAI_COMPLETION = openai.Completion()
 MAX_TOKENS = 100
 
+# 0 is a male voice
+# 1 is a female voice
+VOICE = 1 
+
+# ENGINE SYMTHESIZERS
+# sapi5 = Windows XP, Vista, 8, 8.1, 10, 11
+# espeak = Ubuntu Desktop 8.10, 9.04, 9.10
 engine=pyttsx3.init('sapi5')
 engine.setProperty('volume', 0.5)
 voices=engine.getProperty('voices')
-engine.setProperty('voice', voices[1].id)
-
-# response = openai.Model.retrieve("text-davinci-002")
+engine.setProperty('voice', voices[VOICE].id)
 
 def answer_question(question):
   try:
