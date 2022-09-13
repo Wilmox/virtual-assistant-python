@@ -1,6 +1,8 @@
 import os
+import sys
 import openai
 import speech_recognition
+import pyttsx3
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -8,23 +10,32 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY", default=None)
 
 OPENAI_COMPLETION = openai.Completion()
-MAX_TOKENS = 20
+MAX_TOKENS = 100
+
+engine=pyttsx3.init('sapi5')
+engine.setProperty('volume', 0.5)
+voices=engine.getProperty('voices')
+engine.setProperty('voice', voices[1].id)
 
 # response = openai.Model.retrieve("text-davinci-002")
 
 def answer_question(question):
-  prompt = f"You: {question}\n J.A.R.V.I.S.: "
-  response = OPENAI_COMPLETION.create(
-    model="text-davinci-002",
-    prompt=prompt,
-    temperature=0.5,
-    max_tokens=MAX_TOKENS,
-    top_p=1,
-    frequency_penalty=0.0,
-    presence_penalty=0.0,
-    stop=["You"]
-  )
-  return response.choices[0].text.strip()
+  try:
+    prompt = f"You: {question}\n J.A.R.V.I.S.: "
+    response = OPENAI_COMPLETION.create(
+      model="text-davinci-002",
+      prompt=prompt,
+      temperature=0.5,
+      max_tokens=MAX_TOKENS,
+      top_p=1,
+      frequency_penalty=0.0,
+      presence_penalty=0.0,
+      stop=["You"]
+    )
+    return response.choices[0].text.strip()
+  except Exception as e:
+    print(e)
+    sys.exit()
 
 def listener():
   recognizer = speech_recognition.Recognizer()
@@ -42,9 +53,17 @@ def listener():
       print("❌ I didn't quite get that...")
       return "I didn't quite get that"
     return query
+  
+def speak(sentence):
+  try:
+    engine.say(sentence)
+    engine.runAndWait()
+  except Exception as e:
+    print(e)
     
 
 if __name__ == '__main__':
   query = listener()
   answer = answer_question(query)
-  print(answer)
+  print('Response: \n \t \t' + answer + '\n')
+  speak(answer)
