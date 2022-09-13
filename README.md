@@ -13,6 +13,18 @@ Examples of virtual assistants you might be familiar with:
 * HAL 9000 (2001: A Space Odyssey)
 * ...
 
+## Examples
+Some examples of the voice recognition with the OpenAI response  
+![](media/who-are-you.png)
+
+![](media/meaning-of-life.png)
+
+![](media/philosophy.png)
+
+It can even solve math problems:  
+![](media/math.png)
+
+
 ## Technologies used:
 * [OpenAI API](https://beta.openai.com/docs/api-reference/introduction?lang=python) (+ payment plan setup)
   * `pip install openai`
